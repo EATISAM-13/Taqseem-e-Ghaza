@@ -1,0 +1,144 @@
+{% include "home/includes/head.html" %} 
+{% include "home/includes/navbar.html"%}
+{% load static %}
+{% load temp_lib %}
+
+<div class="container py-5">
+
+    <div class="display-4" title="Sawab points">
+       Points: {{ history|length|multiply:10 }}
+    </div>
+
+    <ul class="nav nav-tabs d-flex justify-content-end fs-4" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="my-tasks-tab" data-bs-toggle="tab" data-bs-target="#my-tasks-tab-pane" type="button" role="tab" aria-controls="my-tasks-tab-pane" aria-selected="true">My tasks</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="available-taks-tab" data-bs-toggle="tab" data-bs-target="#available-taks-tab-pane" type="button" role="tab" aria-controls="available-taks-tab-pane" aria-selected="false">Available Taks</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="history-taks-tab" data-bs-toggle="tab" data-bs-target="#history-tasks-tab-pane" type="button" role="tab" aria-controls="history-taks-tab-pane" aria-selected="false">History</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent" style="min-height:600px">
+        <div class="tab-pane fade show active py-2" id="my-tasks-tab-pane" role="tabpanel" aria-labelledby="my-tasks-tab" tabindex="0">
+            <div class="row gap-4">
+                {% if my_tasks|length < 1 %}
+                  <div class="col-12 display-4 py-5 text-center">No Tasks</div>
+                {% endif %}
+                {% for at in my_tasks %}
+                    <div class="card col-md-4 p-0">
+                        <div class="card-header display-6">
+                            {{ at.U_NAME }}
+                        </div>
+                        <span class="list-group list-group-flush p-4">Address: {{ at.U_ADDRESS }}</span>
+                        <table class="table">
+                            <thead>
+                                <tr class="table-light">
+                                    <th>S#</th>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                </tr>
+                            </thead>
+                            {% with at.items|split:',' as items %}
+                                {% for item in items %}
+                                    {% with at.rate|split:','|index:forloop.counter0 as rate %}
+                                    {% with at.qty|split:','|index:forloop.counter0 as qty %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ item }}</td>
+                                        <td>{{ qty }}</td>
+                                    </tr>
+                                    {% endwith %}
+                                    {% endwith %}
+                                {% endfor %}
+                            {% endwith %}
+                        </table>
+                        <div class="card-footer position-abolute" style="bottom:0">
+                            <a href="/volunteer/task_complete?id={{ at.D_ID }}" class="btn btn-dark position-abolute" style="bottom:0; right:0">Done</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="tab-pane fade py-2" id="available-taks-tab-pane" role="tabpanel" aria-labelledby="available-taks-tab" tabindex="0">
+            <div class="row gap-4">
+                {% if tasks|length < 1 %}
+                  <div class="col-12 display-4 py-5 text-center">No Tasks Available</div>
+                {% endif %}
+                {% for at in tasks %}
+                    <div class="card col-md-4 p-0">
+                        <div class="card-header display-6">
+                            {{ at.U_NAME }}
+                        </div>
+                        <span class="list-group list-group-flush p-4">Address: {{ at.U_ADDRESS }}</span>
+                        <table class="table">
+                            <thead>
+                                <tr class="table-light">
+                                    <th>S#</th>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                </tr>
+                            </thead>
+                            {% with at.items|split:',' as items %}
+                                {% for item in items %}
+                                    {% with at.rate|split:','|index:forloop.counter0 as rate %}
+                                    {% with at.qty|split:','|index:forloop.counter0 as qty %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ item }}</td>
+                                        <td>{{ qty }}</td>
+                                    </tr>
+                                    {% endwith %}
+                                    {% endwith %}
+                                {% endfor %}
+                            {% endwith %}
+                        </table>
+                        <div class="card-footer position-abolute" style="bottom:0">
+                            <a href="/volunteer/task?id={{ at.D_ID }}" class="btn btn-dark position-abolute" style="bottom:0; right:0">Take Task</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="tab-pane fade py-2" id="history-tasks-tab-pane" role="tabpanel" aria-labelledby="history-tab" tabindex="0">
+            <div class="row gap-4">
+                {% if history|length < 1 %}
+                  <div class="col-12 display-4 py-5 text-center">No Tasks</div>
+                {% endif %}
+                {% for at in history %}
+                    <div class="card col-md-4 p-0">
+                        <div class="card-header display-6">
+                            {{ at.U_NAME }}
+                        </div>
+                        <span class="list-group list-group-flush p-4">Address: {{ at.U_ADDRESS }}</span>
+                        <table class="table">
+                            <thead>
+                                <tr class="table-light">
+                                    <th>S#</th>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                </tr>
+                            </thead>
+                            {% with at.items|split:',' as items %}
+                                {% for item in items %}
+                                    {% with at.rate|split:','|index:forloop.counter0 as rate %}
+                                    {% with at.qty|split:','|index:forloop.counter0 as qty %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ item }}</td>
+                                        <td>{{ qty }}</td>
+                                    </tr>
+                                    {% endwith %}
+                                    {% endwith %}
+                                {% endfor %}
+                            {% endwith %}
+                        </table>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "home/includes/footer.html"%}

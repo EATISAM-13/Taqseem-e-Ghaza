@@ -1,0 +1,35 @@
+{% include "home/includes/head.html" %} 
+{% include "home/includes/navbar.html"%}
+{% load static %}
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+        <div class="row align-items-center g-lg-5 py-5">
+          <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-4 fw-bold lh-1 mb-3">Login To Your <p style="color: #dc1758;">Restaurant Account</p></h1>
+            <p class="col-lg-10 fs-4">Join the cause to help and feed the poor and stop the wastage of food.</p>
+          </div>
+          <div class="col-md-10 mx-auto col-lg-5">
+            <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST" action="/restaurant/auth">
+              {% csrf_token %}
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="" name="uname">
+                <label for="floatingInput">Username</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="" name="password">
+                <label for="floatingPassword">Password</label>
+              </div>
+              <p class="text-danger text-center">
+              {% if err %} 
+                Invalid Username Or Password
+              {% else %}
+                &nbsp;
+              {% endif %}
+              </p> 
+              <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+              <hr class="my-4">
+              <small class="text-muted">Dont have an account <a href="/restaurant/signup" class="link-dark">Signup</a></small>
+            </form>
+          </div>
+        </div>
+    </div>
+{% include "home/includes/footer.html"%}

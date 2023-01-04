@@ -1,0 +1,15 @@
+{% include "home/includes/head.html" %} 
+{% include "home/includes/navbar.html"%}
+{% include "home/includes/slider.html"%}
+{% load static %}
+
+    <div class="container my-5" >
+
+        <h1 class="text-capitalize">{{ campaign.C_NAME  }}</h1>
+        <div class="p-2">
+            {{ campaign.C_DESCRIPTION|safe }}
+        </div>
+
+    </div>
+
+{% include "home/includes/footer.html" %}

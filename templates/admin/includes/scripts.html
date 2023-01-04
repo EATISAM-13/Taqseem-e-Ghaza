@@ -1,0 +1,70 @@
+{% load static %}
+<script src="{% static 'js/plugins/jquery.min.js' %}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{% static 'js/plugins/jquery-ui.min.js' %}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'js/plugins/bootstrap.bundle.min.js' %}"></script>
+<!-- daterangepicker -->
+<script src="{% static 'js/plugins/moment.min.js' %}"></script>
+<!-- overlayScrollbars -->
+<script src="{% static 'js/plugins/jquery.overlayScrollbars.min.js' %}"></script>
+<!-- Datatable -->
+<script src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/plugins/dataTables.bootstrap4.min.js' %}"></script>
+<!-- CKEDITOR -->
+<script src="{% static 'js/plugins/ckeditor/ckeditor.js' %}"></script>
+<!-- iziToast. -->
+<script src="{% static 'js/plugins/iziToast/js/iziToast.min.js' %}"></script>
+<!-- SELECT2. -->
+<script src="{% static 'js/plugins/select2/js/select2.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'js/core/adminlte.js' %}"></script>
+<script>
+    let default_img = "";
+    $(document).ready(function(){
+        $('.dataTables').DataTable();
+        if($('.ckeditor').length>0){
+          CKEDITOR.replace( 'ckeditor' );
+        }
+        $('.select2').select2();
+        default_img = $('.img_display').attr('src');
+    })
+
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $('.img_display').attr('src', e.target.result);
+
+          }
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+
+  $('.img_input').change(function(){
+      readURL(this);
+      let val = this.value;
+      if(this.value!="")
+        $(this).siblings('label').html(val.split('\\').pop());
+      else{
+        $(this).siblings('label').html("Choose Image");
+        $('.img_display').attr('src', default_img);
+      }
+  });
+
+  iziToast.settings({
+    timeout: 5000,
+    resetOnHover: false,
+    icon: 'fontawesome',
+    transitionIn: 'flipInX',
+    transitionOut: 'flipOutX',
+    position: 'topRight'
+  });
+
+</script>

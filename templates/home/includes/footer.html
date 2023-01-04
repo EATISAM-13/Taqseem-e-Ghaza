@@ -1,0 +1,27 @@
+<hr >
+        <div class="container"  style="user-select: auto;" >
+            <footer class="text-muted py-5">
+                <div class="container">
+                  <h3>Taqseem e Gaza</h3>
+                  <p class="mb-1"></p>
+                  <p class="mb-0">Save food save humanity, Band together against hunger (Taqseem e Gaza)</p>
+                </div>
+              </footer>
+
+        </div>
+
+        {% include 'home/includes/scripts.html' %}
+        {% block messages %}
+            <script>
+                {% if messages %}
+                    {% for message in messages %}
+                    iziToast.{{ message.tags }}({
+                        title: '{{ message.tags }}',
+                        message: '{{ message }}',
+                    });
+                    {% endfor %}
+                {% endif %}
+            </script>
+        {% endblock %}
+    </body>
+</html>

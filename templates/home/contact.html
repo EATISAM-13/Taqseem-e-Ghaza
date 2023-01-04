@@ -1,0 +1,69 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="referrer" content="origin">
+        <title>Document</title>
+    </head>
+    <body>
+        {% include "home/includes/head.html" %} 
+{% include "home/includes/navbar.html"%}
+{% load static %}
+
+
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+        <div class="row align-items-center g-lg-5 py-5">
+          <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-4 fw-bold lh-1 mb-3" style="color: #29ce7c;" >If you have <p style="color:#EBD12E;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Any Query</p></h1>
+            <p class="col-lg-10 fs-4">Connect with us without any hesitation</p>
+          </div>
+          <div class="col-md-10 mx-auto col-lg-5"> 
+            <div>
+              <form action="https://formsubmit.co/ranaeatisam@gmail.com" method="POST">
+                <div class="col">
+                    <label for="exampleFormControlTextarea1" class="form-label">First Name</label>
+                    <input class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="First Name" name="First Name" required></input>
+                    
+                </div>
+                <div class="col">
+                    <label for="exampleFormControlTextarea1" class="form-label">Last Name</label>
+                    <input class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Last Name" name="Last Name" required></input>
+                </div>
+                <div class="col-12">
+                  <label class="visually-hidden" for="inlineFormSelectPref" >Preference</label>
+                  <select class="form-select" id="inlineFormSelectPref" name= "Preference" required>
+                    <option selected> Select type</option>
+                    <option value="1">Volunteer</option>
+                    <option value="2">Restaurant</option>
+                    <option value="3">Donar</option>
+                    <option value="3">Not registered yet</option>
+                  </select>
+                </div>
+                     
+                    <div>
+                        
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label" >Email address</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="Email address" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputCity" class="form-label" name="Subject">Subject</label>
+                            <input type="text" class="form-control" id="inputCity">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Text Area</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write Your Comment Here..." name="Text Area" required></textarea>
+                        </div>
+                        </div>
+                            <button type="submit" class="btn btn-success" style="background-color:rgb(7, 7, 107);">Send Message</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </div>
+{% include "home/includes/footer.html"%}
+        
+    </body>
+    </html>

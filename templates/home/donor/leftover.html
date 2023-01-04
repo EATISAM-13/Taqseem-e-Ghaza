@@ -1,0 +1,154 @@
+{% include "home/includes/head.html" %} {% include "home/includes/navbar.html"%}
+{% load static %}
+
+<div class="b-divider"></div>
+<div class="container">
+    <div class="row py-5 align-items-center text-center" style="min-height: 60vh">
+        <div class="col-md-5 text-center text-lg-start">
+            <h3 class="display-6 fw-bold lh-1 mb-3">Donate Your Left Overs Food</h3>
+            <p class="col-lg-10 fs-6">the food that is left over for you can fill someones empty stomach, join our cause to feed the poor's</p>
+        </div>
+        <div class="col-md-7">
+            <form id="donation_form" action="/donor/donate" method="post" class="d-flex flex-column justify-content-start gap-3 fs-5" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form1">
+                    <div class="">
+                        <div class="row text-white bg-dark" style="border: solid 1px rgb(164, 163, 163);">
+                            <div class="col-5"> <h3>Service</h3> </div>
+                            <div class="col" style="text-align: center;"> <h3>Quantity</h3>
+                            </div>
+                            <div class="col" style="text-align: center;"> <h3>Per Person</h3>
+                            </div>
+                            <div class="col" style="text-align: center;"> <h3>Sub-total</h3>
+                            </div>
+                        </div>
+
+                    {% for i in items %}
+                    <div class="row" style="border: solid 1px rgb(164, 163, 163);">
+                        <div class="col-5">
+                            <div class="row"><h4> <strong>{{ i.I_NAME }}</strong> </h4></div>
+                            <div class="row"><p style="font-size: 13px;">{{ i.I_SUBTEXT }}</p> </div>
+                        </div>
+                        <div class="col" style="padding: 15px;">
+                            <div class="row justify-content-center">
+                                <div class="col-2">
+                                    
+                                    <button type="button" onclick="minus('t{{forloop.counter}}', 'c{{forloop.counter}}', {{ i.I_RATE }})" style="height: fit-content; width:
+                                        fit-content; font-size: 10px;" class="btn btn-outline-danger">-</button>
+                                </div>
+            
+                                <div class="col-6 rate" id="c{{forloop.counter}}" style="text-align: center;
+                                    font-weight:500;">0</div>
+                                    
+                                <div class="col-2">
+                                    <button type="button" id="p{{forloop.counter}}" onclick="plus('t{{forloop.counter}}', 'c{{forloop.counter}}', {{ i.I_RATE }})" style="height: fit-content; width:
+                                        fit-content; font-size: 10px;" class="btn btn-outline-danger">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" style="text-align: center; padding: 15px;
+                            font-weight:500 ;">{{ i.I_RATE }}</div>
+                        <div class="col stotal" id="t{{ forloop.counter }}" style="text-align: center; padding: 15px;
+                            font-weight:500 ;">0</div>
+                    </div>
+                    <input type="hidden" name="qty" class="qty_{{forloop.counter}}" value=""> 
+                    <input type="hidden" name="rate" value="{{ i.I_RATE }}">
+                    <input type="hidden" name="item" value="{{ i.I_ID }}">
+                    {% endfor %}
+                    </div>
+                </div>
+                <button type="button" class="form1_submit btn btn-dark w-100">Next</button>
+                
+                <div class="form2">
+
+                    <div class="my-2 p-2 d-flex justify-content-start gap-3">
+                        <span class="text-nowrap">Kindly Provide Proof Of Donated Food:</span>
+                        <input type="file" id="file" name="img" onchange="return fileValidation()"/>
+                        <script type="text/javascript">
+                            function fileValidation(){
+                                    var fileInput = document.getElementById('file');
+                                    var filePath = fileInput.value;
+                                    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+                                    if(!allowedExtensions.exec(filePath)){
+                                        alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
+                                        fileInput.value = '';
+                                        return false;
+                                    }else{
+                                        //Image preview
+                                        if (fileInput.files && fileInput.files[0]) {
+                                            var reader = new FileReader();
+                                            reader.onload = function(e) {
+                                                document.getElementById('imagePreview').innerHTML = '<img src="'+e.target.result+'"/>';
+                                            };
+                                            reader.readAsDataURL(fileInput.files[0]);
+                                        }
+                                    }
+                                }
+                        </script>
+                    </div>
+                    <input type="hidden" name="total" class="total" value="0">
+                    <input type="hidden" name="id" class="" value="{{ id }}">
+                    <input type="hidden" name="campaign" class="" value="1">
+                </div>
+            </form>
+            <button type="button" class=" form_back btn btn-secondary w-100 mt-5 mb-2">Back</button>
+            <button type="submit" form="donation_form" class=" form_submit btn btn-dark w-100 mb-5">Donate</button>
+        </div>
+    </div>
+</div>
+<div class="b-divider"></div>
+
+{% include "home/includes/footer.html"%}
+<script>
+    
+    $(document).ready(()=>{
+        $('.form_back').trigger('click')
+    })
+
+    $('.form1_submit').on('click',function(){
+        $('.form1_submit, .form1').hide(300);
+        $('.form2, .form_back, .form_submit').show(300);
+    })
+
+    $('.form_back').on('click',function(){
+        $('.form1_submit, .form1').show(300);
+        $('.form2, .form_back, .form_submit').hide(300);
+    })
+
+    function plus(t, c, show)
+    {
+        
+        var t_1 = document.getElementById(t);
+        var c_1 = document.getElementById(c);
+        
+        c_1.innerHTML = Number(c_1.innerHTML) + 1;
+        t_1.innerHTML = Number(t_1.innerHTML)  + show;
+        $('.qty_'+(c.substring(1))).val(c_1.innerHTML)
+        total = 0;
+        $('.stotal').each((i,e)=>{
+            total+=Number($(e).text())
+        })
+        $('.total').val(total)
+
+    }
+
+    function minus(t, c, show)
+    {
+        var t_1 = document.getElementById(t);
+        var c_1 = document.getElementById(c);
+        
+        if (Number(t_1.innerHTML) >0)
+        {
+            c_1.innerHTML = Number(c_1.innerHTML) - 1;
+            t_1.innerHTML = t_1.innerHTML - show;
+            $('.qty_'+(c.substring(1))).val(c_1.innerHTML)
+        }
+        total = 0;
+        $('.stotal').each((i,e)=>{
+            total+=Number($(e).text())
+        })
+        $('.total').val(total)
+
+    }   
+
+</script>

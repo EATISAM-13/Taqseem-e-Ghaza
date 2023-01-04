@@ -1,0 +1,28 @@
+{% include "home/includes/head.html" %} 
+{% include "home/includes/navbar.html"%}
+{% load static %}
+
+<div class="container">
+
+    <div class="card w-md-50">
+        <div class="card-header fs-2">
+            Restaurant Login
+        </div>
+        <div class="card-body py-2">
+            <div class="form-group mb-4">
+                <label for="">User Name</label>
+                <input type="text" name="uname" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="">Password</label>
+                <input type="text" name="uname" class="form-control">
+            </div>
+
+            <button class="btn btn-primary w-100 my-4">Submit</button>
+        </div>
+    </div>
+
+</div>
+
+{% include "home/includes/footer.html"%}

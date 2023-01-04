@@ -1,0 +1,84 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Taqseem e Ghaza</a>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/home"> Home </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/home/campaigns"> Campaigns </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home/blogs"> Blogs </a>
+            </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home/contact"> Contact us </a>
+            </li>
+            {% if request.session.donor  %}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/donor/leftover"> Donate Left Overs </a>
+            </li>
+            {% endif %}
+              <li class="nav-item dropdown text-end"  style="text-align: right">
+            {% if request.session.donor  %}
+
+            
+            <a class="btn btn-outline-success" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user text-light me-2"></i>{{ request.session.donor }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/donor/history">History</a></li>
+                <li><a class="dropdown-item" href="/donor/logout">Logout</a></li>
+            </ul>
+
+            {% elif request.session.restaurant  %}
+
+            
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user text-light me-2"></i>{{ request.session.restaurant }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/restaurant/">Donate Food</a></li>
+                <li><a class="dropdown-item" href="/restaurant/history">History</a></li>
+                <li><a class="dropdown-item" href="/restaurant/logout">Logout</a></li>
+            </ul>
+
+            {% elif request.session.volunteer  %}
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user text-light me-2"></i>{{ request.session.volunteer }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/volunteer">Dashboard</a></li>
+                    <li><a class="dropdown-item" href="/volunteer/logout">Logout</a></li>
+                </ul>
+            {% else %}
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Login
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/restaurant">Restaurants</a></li>
+                    <li><a class="dropdown-item" href="/donor">Donors</a></li>
+                    <li><a class="dropdown-item" href="/volunteer">Volunteer</a></li>
+                    <li><a class="dropdown-item" href="/admin">Admin</a></li>
+                    
+                </ul>
+                
+                {% endif %}
+            </li>
+            
+            </ul>
+        </div>
+    </div>
+</nav>

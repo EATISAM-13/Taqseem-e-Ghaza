@@ -1,0 +1,45 @@
+{% include "home/includes/head.html" %} {% include "home/includes/navbar.html"%}
+{% load static %}
+{% load temp_lib %}
+
+<div class="b-divider"></div>
+<div class="container py-5">
+    <div class="row gap-4 justify-content-center">
+        {% if history|length < 1 %}
+          <div class="col-12 display-4 py-5 text-center">No History</div>
+        {% endif %}
+        {% for at in history %}
+            <div class="card col-md-3 p-0">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span class="display-6">{{ at.U_NAME }}</span>
+                    <span class="list-group list-group-flush p-4">Date: {{ at.D_DATE }}</span>
+                </div>
+                <span class="list-group list-group-flush p-4">Address: {{ at.U_ADDRESS }}</span>
+                <table class="table">
+                    <thead>
+                        <tr class="table-light">
+                            <th>S#</th>
+                            <th>Item</th>
+                            <th>Qty</th>
+                        </tr>
+                    </thead>
+                    {% with at.items|split:',' as items %}
+                        {% for item in items %}
+                            {% with at.rate|split:','|index:forloop.counter0 as rate %}
+                            {% with at.qty|split:','|index:forloop.counter0 as qty %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ item }}</td>
+                                <td>{{ qty }}</td>
+                            </tr>
+                            {% endwith %}
+                            {% endwith %}
+                        {% endfor %}
+                    {% endwith %}
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="b-divider"></div>
+{% include "home/includes/footer.html"%}

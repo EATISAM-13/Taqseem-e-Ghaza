@@ -1,0 +1,65 @@
+
+{% include "admin/includes/head.html" %}
+
+<body class="login-page">
+    <div
+        class="container d-flex justify-content-center align-items-center w-100 h-100">
+        <div class="login-box">
+            <div class="login-logo">
+                <b>Taqseem e Ghaza</b>
+            </div>
+
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <p class="login-box-msg">Sign in to start your session</p>
+                    <form action="/admin/auth" method="post">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                name="uname" />
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group ">
+                            <input
+                                type="password"
+                                class="form-control"
+                                placeholder="Password"
+                                name="pass" />
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="text-danger text-center p-2">
+                                {% if err %} 
+                                    Invalid Username Or Password
+                                {% else %}
+                                    &nbsp;
+                                {% endif %} 
+                            </p>
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-block">
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center py-3">
+                <a href="/home" class="link link-primary">Home Page</a>
+            </div>
+        </div>
+    </div>
+
+    {% include "admin/includes/footer.html" %}
+</body>

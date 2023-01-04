@@ -1,0 +1,14 @@
+{% load static %}
+
+<script src="{% static 'js/plugins/jquery.min.js' %}"></script>
+<script src="{% static 'js/plugins/bootstrap.min.js' %}"></script>
+<!-- iziToast. -->
+<script src="{% static 'js/plugins/iziToast/js/iziToast.min.js' %}"></script>
+<script>
+  $('.qty').on("keyup",function(){
+    let qty = $(this).val();
+    let rate = parseInt($(this).parents('tr').first().find('.rate').text());
+    console.log($(this).parent('tr'));
+    $(this).parents('tr').first().find("td").last().text(qty*rate);
+  })
+</script>

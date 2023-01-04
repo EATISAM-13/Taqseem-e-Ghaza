@@ -1,0 +1,15 @@
+{% include "home/includes/head.html" %} 
+{% include "home/includes/navbar.html"%}
+{% include "home/includes/slider.html"%}
+{% load static %}
+
+<div class="container my-5">
+
+    <h1 class="text-capitalize display-3">{{ blog.B_NAME}}</h1>
+    <sub class="fs-5">{{ blog.B_DATE }}</sub>
+    <div class="row py-5">
+        {{ blog.B_CONTENT|safe }}
+    </div>
+</div>
+
+{% include "home/includes/footer.html" %}

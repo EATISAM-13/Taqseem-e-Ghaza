@@ -1,0 +1,67 @@
+{% include "admin/includes/head.html" %}
+{% include "admin/includes/navbar.html" %}
+{% include "admin/includes/sidebar.html" %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">{{ page_name }}</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-4">
+                    <form action="/admin/alter_donor_items" method="POST" >
+                        {% csrf_token %}
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="text-uppercase">{{ donor.UT_NAME }}</h3>
+                            </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="item_name">Donor Items:</label>
+                                        <br>
+                                        <select name="items" class="select2 w-100" multiple>
+                                            {% for item in items %}
+                                                <option value="{{ item.I_ID }}" 
+                                            {% for di in donor_items %} 
+                                                {% if di.I_ID == item.I_ID %}
+                                                selected 
+                                                {% endif %} 
+                                            {% endfor %}
+                                                >{{ item.I_NAME }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+                                    <input type="hidden" name="id" value="{{ donor.UT_ID }}">
+                                    <a href="/admin/donor_types" class="btn btn-secondary">Back</a>
+                                    <button type="submit" class="btn btn-primary float-right">Save Changes</button>
+                                </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+{% include "admin/includes/footer.html" %}

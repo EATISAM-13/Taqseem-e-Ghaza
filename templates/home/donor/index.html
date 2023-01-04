@@ -1,0 +1,185 @@
+{% include "home/includes/head.html" %} {% include "home/includes/navbar.html"%}
+{% load static %}
+
+<div class="b-divider"></div>
+<div class="container">
+    <div class="row py-5 align-items-center text-center" style="min-height: 60vh">
+        <div class="col-md-5 text-center text-lg-start">
+            <h3 class="display-6 fw-bold lh-1 mb-3">Donate For {{ campaign.C_NAME }}</h3>
+            <p class="col-lg-10 fs-6">with your donation we'll be able to help starving and needy peoples</p>
+        </div>
+        <div class="col-md-7">
+            <form id="donation_form" action="/donor/donate" method="post" class="d-flex flex-column justify-content-start gap-3 fs-5" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form1">
+                    <div class="">
+                        <div class="row text-white bg-dark" style="border: solid 1px rgb(164, 163, 163);">
+                            <div class="col-5"> <h3>Service</h3> </div>
+                            <div class="col" style="text-align: center;"> <h3>Quantity</h3>
+                            </div>
+                            <div class="col" style="text-align: center;"> <h3>Unit Price</h3>
+                            </div>
+                            <div class="col" style="text-align: center;"> <h3>Sub-total</h3>
+                            </div>
+                        </div>
+
+                    {% for i in items %}
+                    <div class="row" style="border: solid 1px rgb(164, 163, 163);">
+                        <div class="col-5">
+                            <div class="row"><h4> <strong>{{ i.I_NAME }}</strong> </h4></div>
+                            <div class="row"><p style="font-size: 13px;">{{ i.I_SUBTEXT }}</p> </div>
+                        </div>
+                        <div class="col" style="padding: 15px;">
+                            <div class="row justify-content-center">
+                                <div class="col-2">
+                                    
+                                    <button type="button" onclick="minus('t{{forloop.counter}}', 'c{{forloop.counter}}',{{ i.I_RATE }})" style="height: fit-content; width:
+                                        fit-content; font-size: 10px;" class="btn btn-outline-danger">-</button>
+                                </div>
+            
+                                <div class="col-6 rate" id="c{{forloop.counter}}" style="text-align: center;
+                                    font-weight:500;">0</div>
+                                    
+                                <div class="col-2">
+                                    <button type="button" id="p{{forloop.counter}}" onclick="plus('t{{forloop.counter}}', 'c{{forloop.counter}}', {{ i.I_RATE }})" style="height: fit-content; width:
+                                        fit-content; font-size: 10px;" class="btn btn-outline-danger">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" style="text-align: center; padding: 15px;
+                            font-weight:500 ;">{{ i.I_RATE }}</div>
+                        <div class="col stotal" id="t{{ forloop.counter }}" style="text-align: center; padding: 15px;
+                            font-weight:500 ;">0</div>
+                    </div>
+                    <input type="hidden" name="qty" class="qty_{{forloop.counter}}" value=""> 
+                    <input type="hidden" name="rate" value="{{ i.I_RATE }}">
+                    <input type="hidden" name="item" value="{{ i.I_ID }}">
+                    {% endfor %}
+                    <div class="row" style="border: solid 1px rgb(164, 163, 163);">
+                        <div class="col-5 pt-3">
+                            <div class="row"><h4> <strong>Sub Total</strong> </h4></div>
+                            <div class="row"><p style="font-size: 13px;"></p> </div>
+                        </div>
+                        <div class="col" style="padding: 15px;">
+                        </div>
+                        <div class="col sub_total" style="text-align: center; padding: 15px;
+                            font-weight:500 ;"><span>0</span></div>
+                    </div>
+                    </div>
+                </div>
+                
+                <button type="button" class="form1_submit btn btn-dark w-100">Next</button>
+                
+                <div class="form2">
+
+                    <div class="row mb-2 my-4">
+                        <div class="col-md-12">
+                            <div class="row g-0 border rounded overflow-hidden
+                                flex-md-row
+                                mb-4 shadow-sm h-md-250 position-relative fs-6">
+                                <div class="col-6 p-4 d-flex flex-column position-static">
+                                    <strong class="d-inline-block mb-2 text-warning"><h3 class="mb-0">Allied Bank Ltd.</h3></strong>
+                                    <p style="padding: 0px; margin-bottom:0px"> <b>Account Title : </b> </p>
+                                    <p>Eatisam Ahmed</p>
+                                    <p style="padding: 0px; margin-bottom:0px"> <b>Account Number : </b> </p>
+                                    <p>AL1484000552178511111</p>
+                                    <p style="padding: 0px; margin-bottom:0px"> <b>Swift Code : </b> </p>
+                                    <p>UNILPKKA</p>
+                                </div>
+                                <div class="col-6 d-lg-block" style="text-align: right;">
+                                    <img src="https://www.abl.com/src/uploads/2020/11/Allied-Bank-Logo1.png" width="100" height="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row g-0 border rounded overflow-hidden
+                                flex-md-row
+                                mb-4 shadow-sm h-md-250 position-relative fs-6">
+                                <div class="col-6 p-4 d-flex flex-column position-static">
+                                    <strong class="d-inline-block mb-2 text-success"><h3 class="mb-0">Easypaisa</h3></strong>
+                                    <p style="padding: 0px; margin-bottom:0px"> <b>Account Title : </b> </p>
+                                    <p>Eatisam Ahmed</p>
+                                    <p style="padding: 0px; margin-bottom:0px"> <b>Account Number : </b> </p>
+                                    <p>+923347851996</p>
+                                    <p style="padding: 0px; margin-bottom:0px"> <b>Swift Code : </b> </p>
+                                    <p>UNILPKKA</p>
+                                </div>
+                                <div class="col d-lg-block" style="text-align: right;">
+                                    <img src="data:image/png;base64,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" width="100" height="100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="my-2 p-2 d-flex justify-content-start gap-3">
+                        <span class="text-nowrap">Transaction Image:</span>
+                        <input type="file" name="img" class="form-control" required>
+                    </div>
+                    <input type="hidden" name="total" class="total" value="0">
+                    <input type="hidden" name="id" class="" value="{{ id }}">
+                    <input type="hidden" name="campaign" class="" value="{{ campaign.C_ID }}">
+                </div>
+            </form>
+            <button type="button" class=" form_back btn btn-secondary w-100 mt-5 mb-2">Back</button>
+            <button type="submit" form="donation_form" class=" form_submit btn btn-dark w-100 mb-5">Donate</button>
+        </div>
+    </div>
+</div>
+<div class="b-divider"></div>
+
+{% include "home/includes/footer.html"%}
+<script>
+    
+    $(document).ready(()=>{
+        $('.form_back').trigger('click')
+    })
+
+    $('.form1_submit').on('click',function(){
+        $('.form1_submit, .form1').hide(300);
+        $('.form2, .form_back, .form_submit').show(300);
+    })
+
+    $('.form_back').on('click',function(){
+        $('.form1_submit, .form1').show(300);
+        $('.form2, .form_back, .form_submit').hide(300);
+    })
+
+    function plus(t, c, show)
+    {
+        
+        var t_1 = document.getElementById(t);
+        var c_1 = document.getElementById(c);
+        
+        c_1.innerHTML = Number(c_1.innerHTML) + 1;
+        t_1.innerHTML = Number(t_1.innerHTML) + show;
+        $('.qty_'+(c.substring(1))).val(c_1.innerHTML)
+        total = 0;
+        $('.stotal').each((i,e)=>{
+            total+=Number($(e).text())
+        })
+        $('.total').val(total)
+        $('.sub_total span').text(total)
+
+    }
+
+    function minus(t, c, show)
+    {
+        var t_1 = document.getElementById(t);
+        var c_1 = document.getElementById(c);
+        
+        if (Number(t_1.innerHTML) >0)
+        {
+            c_1.innerHTML = Number(c_1.innerHTML) - 1;
+            t_1.innerHTML = t_1.innerHTML - show;
+            $('.qty_'+(c.substring(1))).val(c_1.innerHTML)
+        }
+        total = 0;
+        $('.stotal').each((i,e)=>{
+            total+=Number($(e).text())
+        })
+        $('.total').val(total)
+        $('.sub_total span').text(total)
+
+    }   
+
+</script>

@@ -1,0 +1,30 @@
+{% include "home/includes/head.html" %} 
+{% include "home/includes/navbar.html"%}
+{% include "home/includes/slider.html"%}
+{% load static %}
+
+    <div class="container my-5">
+
+        <h1 class="text-capitalize display-3">Blogs</h1>
+        <div class="row py-5">
+
+            {% for b in blogs %}
+            <div class="col-md-6">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                  <div class="col p-4 d-flex flex-column position-static">
+                    <h3 class="mb-0">{{ b.B_NAME }}</h3>
+                    <div class="mb-1 text-muted">{{ b.B_DATE }}</div>
+                    <p class="card-text mb-auto">{{ b.B_CONTENT|slice:"0:100"|safe }}</p>
+                    <a href="/home/blog?id={{ b.B_ID }}" class="stretched-link">Continue reading</a>
+                  </div>
+                </div>
+              </div>
+
+              {% endfor %}
+
+
+        </div>
+
+    </div>
+
+{% include "home/includes/footer.html" %}

@@ -1,0 +1,39 @@
+{% include "home/includes/head.html" %} {% include "home/includes/navbar.html"%}
+{% load static %} {% load temp_lib %}
+
+<div class="container">
+    <div class="row" style="min-height: 60vh">
+        <div class="col-md-2 my-5 border-end d-flex flex-column justify-content-start gap-3 fs-4">
+            <a href="/restaurant" class="link-secondary">Donate</a>
+            <a href="/restaurant/history" class="link-secondary">History</a>
+        </div>
+
+        <div class="col-md-8 my-5 row">
+            {% for h in history %}
+            <div class="card col-md-6 mb-3 mx-1 p-0">
+                <div class="card-header bg-secondary text-light fs-3">{{ h.D_DATE }}</div>
+                <div class="card-body">
+                    <div class="d-flex flex-column history">
+                        {% with h.items|split:"," as word %} 
+                            {% for w in word %}
+                                <div class="my-2">
+                                    <span>Item: {{ w }}</span><br>
+                                    {% with h.qty|split:','|index:forloop.counter0 as qty  %}
+                                    {% with h.rate|split:','|index:forloop.counter0 as rate %}
+                                    <span class="ms-2 badge bg-secondary">Qty: <span class="qty">{{ qty }}</span></span>
+                                    <span class="ps-2 badge bg-secondary">Rate: <span class="rate">{{ rate }}</span></span>
+                                    <span class="ps-2 badge bg-secondary">Total: <span class="total">{{ qty|multiply:rate }}</span></span>
+                                    {% endwith %}
+                                    {% endwith %}
+                                </div>
+                            {% endfor %} 
+                        {% endwith %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include "home/includes/footer.html"%}

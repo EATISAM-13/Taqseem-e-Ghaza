@@ -1,0 +1,63 @@
+{% include "home/includes/head.html" %} 
+{% include "home/includes/navbar.html"%}
+{% load static %}
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+        <div class="row align-items-center g-lg-5 py-5">
+          <div class="col-lg-6 text-center text-lg-start">
+            <h1 class="display-4 fw-bold lh-1 mb-3">Signup For <p style="color: #29ce7c;">Donor Account</p> </h1>
+            <p class="col-lg-10 fs-4">Join the cause to help and feed the poor and stop the wastage of food.</p>
+          </div>
+          <div class="col-md-10 mx-auto col-lg-6">
+            <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST" action="/donor/register">
+              {% csrf_token %}
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="" name="name" value="{{data.name}}" required>
+                <label for="floatingInput">Name</label>
+                {% if err.name %}
+                <p class="text-danger text-center"> Invalid Name </p>
+                {% endif %}
+              </div>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="" name="email" value="{{data.email}}" required>
+                <label for="floatingInput">Email Address</label>
+                {% if err.email %}
+                <p class="text-danger text-center"> Invalid Email </p>
+                {% endif %}
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="" name="contact" value="{{data.contact}}" required>
+                <label for="floatingInput">Contact</label>
+                {% if err.contact %}
+                <p class="text-danger text-center"> Invalid Contact </p>
+                {% endif %}
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="" name="address" value="{{data.address}}" required>
+                <label for="floatingInput">Address</label>
+                {% if err.address %}
+                <p class="text-danger text-center"> Invalid Address </p>
+                {% endif %}
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="" name="uname" value="{{data.uname}}" required>
+                <label for="floatingInput">Username</label>
+                {% if err.uname %}
+                  <p class="text-danger text-center"> Username Already Existed! </p>
+                {% endif %}
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="" name="pass" value="{{data.pass}}" required>
+                <label for="floatingPassword">Password</label>
+                {% if err.password %}
+                  <p class="text-danger text-center"> Invalid Password, <br>Password Must Contain Minimum eight characters, at least one letter and one number </p>
+                {% endif %}                
+              </div>
+              <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+              <hr class="my-4">
+              <input type="hidden" name="typ" value="2" required>
+              <small class="text-muted">Already have an account <a href="/volunteer/login" class="link-dark">Sign in</a></small>
+            </form>
+          </div>
+        </div>
+    </div>
+{% include "home/includes/footer.html"%}
